@@ -34,8 +34,11 @@ const createNoteView = (note) => {
 	noteDiv.append(textDiv)
 	noteDiv.append(editButton)
 	noteDiv.append(deleteButton)
+	editButton.onclick = () => editNote(noteDiv);
+	deleteButton.onclick = () => deleteNote(noteDiv);
 	return noteDiv;
 }
+
 const cancelEdit = (noteDiv) => {
 	const titleP = noteDiv.querySelector('b.title');
 	titleP.contentEditable = false;
@@ -51,6 +54,7 @@ const cancelEdit = (noteDiv) => {
 	editButton.onclick = () => editNote(noteDiv);
 	deleteButton.onclick = () => deleteNote(noteDiv);
 }
+
 const editNote = (noteDiv, editSave = false) => {
 	const titleP = noteDiv.querySelector('b.title');
 	titleP.contentEditable = true;
@@ -77,6 +81,7 @@ const editNote = (noteDiv, editSave = false) => {
 		deleteButton.onclick = () => deleteNote(noteDiv);
 	}
 }
+
 const saveNote = () => {
 	const titleInput = document.querySelector('input#title');
 	const bodyInput = document.querySelector('input#body');
@@ -91,12 +96,14 @@ const saveNote = () => {
 	bodyInput.value = '';
 	bgColorInput.value = '';
 }
+
 const deleteNote = (noteDiv) => {
 	noteDiv.remove();
 	notes = notes.filter(note => note.id != noteDiv.id);
 }
 
 document.querySelector('button.add').onclick = () => saveNote();
+
 const notesDiv = document.querySelector('.notesDiv');
 notes.forEach(note => {
 	const noteDiv = createNoteView(note);
